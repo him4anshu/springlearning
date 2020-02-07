@@ -1,0 +1,18 @@
+1. GIT
+2. Environment setup/Details
+	-Local
+	-Dev
+	-Staging
+	-UAT
+	-PRODs
+3. JOIN Operation SQL	
+4. Spring Boot with Any Project 
+	->REST API access with credentials
+	->User registration with Encrypted password
+	->Spring JDBC Template
+	-> Read static data from properties
+5. Spring MVC
+3. JUNIT
+4. Debugging
+5. Eclipse Short cut
+	
