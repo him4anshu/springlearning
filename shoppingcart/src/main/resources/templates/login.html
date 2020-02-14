@@ -17,20 +17,18 @@
 
 <div class="container">
     <img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo"/>
-    <form th:action="@{/login}" method="POST" class="form-signin">
+    <form th:action="@{/login}" method="POST" class="form-signin" th:object="${user}">
         <h3 class="form-signin-heading" th:text="Welcome"></h3>
         <br/>
 
-        <input type="text" id="user_name" name="user_name" placeholder="User Name"
-               class="form-control"/> <br/>
-        <input type="password" th:placeholder="Password"
-               id="password" name="password" class="form-control"/> <br/>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
-        </div>
+        <input type="text" th:field="*{userName}" class="form-control" placeholder="User Name"/> <br/>
+        
+        <input type="password" th:field="*{password}" placeholder="Password"  class="form-control"/> <br/>
+		<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
         <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
                 th:text="Login"></button>
+                
+         <h2><span class="text-success" th:utext="${wrongPassword}"></span></h2>
     </form>
 </div>
 </body>

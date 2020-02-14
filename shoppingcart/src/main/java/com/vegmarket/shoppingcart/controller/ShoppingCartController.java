@@ -1,5 +1,7 @@
 package com.vegmarket.shoppingcart.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vegmarket.shoppingcart.model.Product;
 import com.vegmarket.shoppingcart.model.User;
 import com.vegmarket.shoppingcart.services.UserService;
 
@@ -22,6 +25,7 @@ public class ShoppingCartController {
 	@GetMapping(value = { "/", "/login" })
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
+	    modelAndView.addObject("user", new User());
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
@@ -47,6 +51,7 @@ public class ShoppingCartController {
             bindingResult
                     .rejectValue("userName", "error.user",
                             "There is already a user registered with the user name provided");
+       
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
@@ -59,4 +64,29 @@ public class ShoppingCartController {
         }
         return modelAndView;
     }
+	@PostMapping(value = "/login")
+    public ModelAndView login(@Valid User user, BindingResult bindingResult) {
+		System.out.println(user.getUserName());
+		ModelAndView modelAndView = new ModelAndView();
+		String userName = user.getUserName();
+		String userEntredPassword = user.getPassword();
+		User userFromDB = userService.findUserByUserName(userName);
+		if(userFromDB == null) {
+			System.out.println("User is not avialable");
+			modelAndView.setViewName("registration");
+		}else {
+			if(userEntredPassword.equals(userFromDB.getPassword())) {
+				List<Product> products = userService.getAllProduct();
+				modelAndView.addObject("products", products);
+				modelAndView.setViewName("home");
+			}else {
+				System.out.println("Entred wrong password");
+				 modelAndView.addObject("wrongPassword", "Your password is wrong");
+				modelAndView.setViewName("login");
+			}
+		}
+		return modelAndView;
+	}
+	
+
 }

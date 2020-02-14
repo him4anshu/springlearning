@@ -2,12 +2,15 @@ package com.vegmarket.shoppingcart.services;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vegmarket.shoppingcart.model.Product;
 import com.vegmarket.shoppingcart.model.Role;
 import com.vegmarket.shoppingcart.model.User;
+import com.vegmarket.shoppingcart.repository.ProductRepository;
 import com.vegmarket.shoppingcart.repository.RoleRepository;
 import com.vegmarket.shoppingcart.repository.UserRepository;
 
@@ -19,6 +22,9 @@ public class UserService {
 	
 	@Autowired
     private RoleRepository roleRepository;
+	
+	@Autowired
+    private ProductRepository productRepository;
     //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
    /* @Autowired
@@ -47,4 +53,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<Product> getAllProduct(){
+    	return productRepository.findAll();
+    }
 }
