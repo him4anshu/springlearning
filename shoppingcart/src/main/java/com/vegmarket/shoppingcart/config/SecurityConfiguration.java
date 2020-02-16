@@ -1,4 +1,4 @@
-/*package com.vegmarket.shoppingcart.config;
+package com.vegmarket.shoppingcart.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,4 +13,4 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-}*/
+}

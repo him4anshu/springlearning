@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vegmarket.shoppingcart.model.Product;
@@ -17,17 +18,13 @@ import com.vegmarket.shoppingcart.repository.UserRepository;
 @Service
 public class UserService {
 
-	@Autowired
     private UserRepository userRepository;
-	
-	@Autowired
     private RoleRepository roleRepository;
-	
-	@Autowired
+    @Autowired
     private ProductRepository productRepository;
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-   /* @Autowired
+    @Autowired
     public UserService(UserRepository userRepository,
                        RoleRepository roleRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder
@@ -35,18 +32,18 @@ public class UserService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }*/
+    }
 
-   /* public User findUserByEmail(String email) {
+    public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-*/
+
     public User findUserByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
 
     public User saveUser(User user) {
-        user.setPassword(user.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
         Role userRole = roleRepository.findByRole("ADMIN");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));

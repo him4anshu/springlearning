@@ -1,4 +1,4 @@
-/*package com.vegmarket.shoppingcart.config;
+package com.vegmarket.shoppingcart.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.gpch.login.service.MyUserDetailsService;
+import com.vegmarket.shoppingcart.services.MyUserDetailsService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +27,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	System.out.println("================= Authentication =====================");
                 auth
                     .userDetailsService(userDetailsService)
                     .passwordEncoder(bCryptPasswordEncoder);
@@ -33,6 +35,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	System.out.println("===================Authorization==========");
 
         String loginPage = "/login";
         String logoutPage = "/logout";
@@ -46,24 +49,29 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable()
+                
                 .formLogin()
                 .loginPage(loginPage)
                 .loginPage("/")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
-                .usernameParameter("user_name")
+                .defaultSuccessUrl("/home")
+                .usernameParameter("user_name123")
                 .passwordParameter("password")
+                
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
-                .logoutSuccessUrl(loginPage).and().exceptionHandling();
+                .logoutSuccessUrl(loginPage).
+                
+                and().exceptionHandling();
+        
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+    	System.out.println("==================Unprotected URL=========================");
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 
 }
-*/

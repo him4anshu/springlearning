@@ -12,14 +12,53 @@
 
 <body>
 <div class="container">
+ <form th:action="@{/logout}" method="get">
+ 		<div class="panel-heading">
+               <span th:utext="${userName}"></span>
+          
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit" style="width:70px">Logout
+        </button>
+        </div>
+    </form>
+    
+     <form th:action="@{/updatepassword}" method="post">
+     	<div style="width:200px; border-style: solid;">
+     	<span>Update Password </span>
+		<input type="password" placeholder="Enter Old Password"
+                th:name="oldpassword" class="form-control"/> <br/>
+                
+        <input type="password" placeholder="Enter new Password"
+                th:name="newpassword" class="form-control"/> <br/>
+         
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Update" type="Submit"
+                th:text="Update"></button>
+                
+        </div>
+    </form>
+    
+
     <h3>Welcome to Home Page</h3>
-    <div class="row" >
-            <div class="col-lg-4 col-md-6 mb-4" th:each="item : ${products}">
-                  <div th:utext="${item.productName}"></div>
-                  <div th:utext="${item.price}"></div>
-                  <div th:utext="${item.quantity}"></div>
-            </div>
-</div>
+    <table border="1" cellpadding ="10">
+  <thead>
+  <tr>
+  <th> Product name </th>
+  <th> Price</th>
+  <th> Quantity</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+   <tr th:each ="item : ${products}">
+    <td th:text="${item.productName}"></td>
+   <td th:text="${item.price}"></td>
+   <td th:text ="${item.quantity}"></td>
+   </tr>
+   
+   
+  
+  </tbody>
+  </table>
 </div>
 </body>
 </html>
