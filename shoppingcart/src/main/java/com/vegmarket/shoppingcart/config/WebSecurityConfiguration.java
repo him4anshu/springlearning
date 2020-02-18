@@ -40,7 +40,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         String loginPage = "/login";
         String logoutPage = "/logout";
 
-        http.
+       /* http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(loginPage).permitAll()
@@ -62,7 +62,35 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).
                 
-                and().exceptionHandling();
+                and().exceptionHandling();*/
+        //Role Based Login Page
+        http.
+        authorizeRequests()
+        .antMatchers("/").permitAll()
+        .antMatchers(loginPage).permitAll()
+        .antMatchers("/registration").permitAll()
+        .antMatchers("/admin/**").hasAuthority("ADMIN")
+        .anyRequest()
+        .authenticated()
+        .and().csrf().disable()
+        
+        .formLogin()
+        .loginPage(loginPage)
+        .loginPage("/")
+        .failureUrl("/login?error=true")
+        .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
+        .usernameParameter("user_name123")
+        .passwordParameter("password")
+        
+        .and().logout()
+        .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
+        .logoutSuccessUrl(loginPage).
+        
+        and().exceptionHandling();
+        
+        
+        
+
         
     }
 

@@ -5,6 +5,9 @@
 <head>
     <title>Spring Security Tutorial</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -42,17 +45,21 @@
     <table border="1" cellpadding ="10">
   <thead>
   <tr>
-  <th> Product name </th>
+  <th> Product Code</th>
+  <th> Product Name</th>
   <th> Price</th>
-  <th> Quantity</th>
+  <th> Buy</th>
   </tr>
   </thead>
   
   <tbody>
    <tr th:each ="item : ${products}">
-    <td th:text="${item.productName}"></td>
+   <td th:text ="${item.code}"></td>
+   <td th:text="${item.name}"></td>
    <td th:text="${item.price}"></td>
-   <td th:text ="${item.quantity}"></td>
+   <td>
+   	<a th:href="@{'/buyProduct/'+${item.code}}">Buy Now</a>
+   </td>
    </tr>
    
    

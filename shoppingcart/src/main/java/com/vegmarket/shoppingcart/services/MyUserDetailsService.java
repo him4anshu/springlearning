@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vegmarket.shoppingcart.model.Role;
-import com.vegmarket.shoppingcart.model.User;
+import com.vegmarket.shoppingcart.entity.Role;
+import com.vegmarket.shoppingcart.entity.User;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

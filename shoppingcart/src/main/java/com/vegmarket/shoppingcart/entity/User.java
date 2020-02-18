@@ -1,4 +1,4 @@
-package com.vegmarket.shoppingcart.model;
+package com.vegmarket.shoppingcart.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
