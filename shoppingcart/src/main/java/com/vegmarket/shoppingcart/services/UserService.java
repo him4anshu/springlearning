@@ -1,5 +1,6 @@
 package com.vegmarket.shoppingcart.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -75,13 +76,20 @@ public class UserService {
     public List<ProductInfo> getAllProduct(){
     	List<Product> products = productRepository.findAll();
     	
+    	List<ProductInfo> prdInofList = new ArrayList<ProductInfo>();
+    	for (Product product : products) {
+			ProductInfo p = new ProductInfo(product.getCode(), product.getName(), product.getPrice());
+			prdInofList.add(p);
+		}
+    	
+    	return prdInofList;
     	//Using Stream
-    	return products.stream().map(new Function<Product, ProductInfo>() {
+    	/*return products.stream().map(new Function<Product, ProductInfo>() {
 			@Override
 			public ProductInfo apply(Product p) {
 				return new ProductInfo(p.getCode(), p.getName(), p.getPrice());
 			}
-		}).collect(Collectors.toList());
+		}).collect(Collectors.toList());*/
     	
     	//Using Lamda
     	//return products.stream().map(p -> new ProductInfo(p.getCode(), p.getName(), p.getPrice())).collect(Collectors.toList());

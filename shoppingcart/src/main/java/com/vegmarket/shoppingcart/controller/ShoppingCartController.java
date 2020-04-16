@@ -159,9 +159,9 @@ public class ShoppingCartController {
 	         product = userService.findProduct(prdCode).get();
 	      }
 	      if (product != null) {
-	         CartInfo cartInfo = Utils.getCartInSession(request);
+	         CartInfo cartInfo = Utils.getCartInSession(request); // this will give prevoius added item
 	         ProductInfo productInfo = new ProductInfo(product);
-	         cartInfo.addProduct(productInfo, 1);
+	         cartInfo.addProduct(productInfo, 1); // this will add new item into prevoius session
 	      }
 	      return "redirect:/shoppingCart";
 	 }

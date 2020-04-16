@@ -1,5 +1,8 @@
 package com.vegmarket.shoppingcart.util;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.boot.web.servlet.server.Session;
 
 import com.vegmarket.shoppingcart.model.CartInfo;
  
@@ -16,6 +19,7 @@ public class Utils {
    }
  
    public static void removeCartInSession(HttpServletRequest request) {
+	   HttpSession session = request.getSession();
       request.getSession().removeAttribute("myCart");
    }
  
